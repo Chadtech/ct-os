@@ -1,11 +1,12 @@
 module Main.View exposing (view)
 
 import Html exposing (Html, div, p, a, text)
-import Html.Attributes exposing (class, style)
-import Main.Model exposing (Model, Software(..))
+import Html.Attributes exposing (class, classList, style)
+import Main.Model exposing (Model)
+import Main.Types.Software exposing (Software(..))
 import Main.Message exposing (Message(..))
 import TextWriter.View as TextWriter
-import Dict
+import Array
 
 
 view : Model -> Html Message
@@ -19,30 +20,36 @@ view model =
 
 startBar : Model -> Html Message
 startBar { software } =
+    software
+        |> Array.map softwareTab
+        |> Array.toList
+        |> div [ class "start-bar" ]
+
+
+softwareTab : Software -> Html Message
+softwareTab software =
     let
-        start =
-            a [] [ text "start" ]
+        title =
+            case software of
+                TextWriter model ->
+                    model.title
     in
-        (start :: List.map softwareTab (Dict.toList software))
-            |> div [ class "start-bar" ]
-
-
-softwareTab : ( String, Software ) -> Html Message
-softwareTab ( name, _ ) =
-    a
-        [ class "selected" ]
-        [ text name ]
+        a
+            []
+            [ text title ]
 
 
 softwareWindows : Model -> List (Html Message)
 softwareWindows =
-    .software >> Dict.toList >> List.map softwareWindow
+    .software
+        >> Array.indexedMap softwareWindow
+        >> Array.toList
 
 
-softwareWindow : ( String, Software ) -> Html Message
-softwareWindow ( name, software ) =
+softwareWindow : Int -> Software -> Html Message
+softwareWindow index software =
     case software of
         TextWriter model ->
             Html.map
-                (TextWriterMessage name)
-                (TextWriter.view name model)
+                (TextWriterMessage index)
+                (TextWriter.view index model)

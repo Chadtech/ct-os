@@ -2,10 +2,11 @@ module TextWriter.Update exposing (update)
 
 import TextWriter.Model exposing (Model)
 import TextWriter.Message exposing (Message(..))
+import TextWriter.ExternalMessage exposing (ExternalMessage(..))
 import Mouse exposing (Position)
 
 
-update : Message -> Model -> ( Model, Maybe (Maybe (Position -> Message)), Bool, Cmd Message )
+update : Message -> Model -> ( Model, Maybe ExternalMessage, Cmd Message )
 update message model =
     case message of
         SetContent newContent ->
@@ -15,7 +16,7 @@ update message model =
                         | content = newContent
                     }
             in
-                ( newModel, Nothing, True, Cmd.none )
+                ( newModel, Nothing, Cmd.none )
 
         SetPosition { x, y } ->
             let
@@ -35,7 +36,7 @@ update message model =
                         Nothing ->
                             model
             in
-                ( newModel, Nothing, True, Cmd.none )
+                ( newModel, Nothing, Cmd.none )
 
         TitleMouseDown { targetPos, clientPos } ->
             let
@@ -50,7 +51,10 @@ update message model =
                         | mouseDownPosition = Just (Position x y)
                     }
             in
-                ( newModel, Just (Just SetPosition), True, Cmd.none )
+                ( newModel
+                , Just (TrackMouseMovements SetPosition)
+                , Cmd.none
+                )
 
         TitleMouseUp ->
             let
@@ -59,7 +63,13 @@ update message model =
                         | mouseDownPosition = Nothing
                     }
             in
-                ( newModel, Just Nothing, True, Cmd.none )
+                ( newModel
+                , Just (StopTrackingMouseMovements)
+                , Cmd.none
+                )
 
         Close ->
-            ( model, Nothing, False, Cmd.none )
+            ( model
+            , Just Delete
+            , Cmd.none
+            )

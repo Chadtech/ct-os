@@ -1,17 +1,17 @@
 module Main.Init exposing (model, cmd)
 
-import Main.Model exposing (Model, Software(..))
+import Main.Model exposing (Model)
+import Main.Types.Software exposing (Software(..))
 import Main.Message exposing (Message(..))
 import TextWriter.Model as TextWriter
-import Dict
-import Util exposing ((:=))
+import Array
 
 
 model : Model
 model =
     { software =
-        Dict.fromList
-            [ "text writer" := TextWriter TextWriter.init ]
+        Array.fromList
+            [ TextWriter (TextWriter.init "") ]
     , mouseMoveMsg = Nothing
     }
 

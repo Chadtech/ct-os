@@ -9,8 +9,8 @@ import Util exposing ((:=), px)
 import MouseEvents
 
 
-view : String -> Model -> Html Message
-view name model =
+view : Int -> Model -> Html Message
+view index model =
     let
         { width, height } =
             model.size
@@ -34,7 +34,7 @@ view name model =
                 ]
                 [ p
                     []
-                    [ text name ]
+                    [ text model.title ]
                 , a
                     [ class "close"
                     , onClick Close

@@ -1,16 +1,12 @@
 module Main.Model exposing (..)
 
-import Dict exposing (Dict)
-import TextWriter.Model as TextWriter
+import Array exposing (Array)
 import Main.Message exposing (Message(..))
 import Mouse exposing (Position)
+import Main.Types.Software exposing (Software(..))
 
 
 type alias Model =
-    { software : Dict String Software
+    { software : Array Software
     , mouseMoveMsg : Maybe (Position -> Message)
     }
-
-
-type Software
-    = TextWriter TextWriter.Model
