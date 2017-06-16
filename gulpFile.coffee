@@ -77,7 +77,7 @@ gulp.task "elm-make", ->
 
 
 gulp.task "server", ->
-    (require "./server")(2978, util.log)
+    (require "./server")(2969, util.log)
 
 
 gulp.task "distribution", ->

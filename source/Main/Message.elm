@@ -1,9 +1,10 @@
 module Main.Message exposing (Message(..), Handler)
 
+import TextWriter.Message as TextWriter
+
 
 type Message
-    = UpdateField String
-    | HandlePort String
+    = TextWriterMessage String TextWriter.Message
 
 
 type alias Handler a =

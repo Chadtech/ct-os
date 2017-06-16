@@ -1,0 +1,64 @@
+a
+    font-family hfnss
+    color pointColor
+    -webkit-font-smoothing none
+    margin 8px
+    font-size 2em
+    
+    border-top 2px solid ignorable1
+    border-left 2px solid ignorable1
+    border-right 2px solid ignorable3
+    border-bottom 2px solid ignorable3
+    
+    background ignorable2
+    display inline-block
+    
+    padding-top 4px
+    padding-bottom 4px
+    padding-left 8px
+    padding-right 8px
+    
+    cursor pointer
+    
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    
+    &:hover
+        color pointier
+        
+    &:active
+        border-top 2px solid ignorable3
+        border-left 2px solid ignorable3
+        border-right 2px solid ignorable1
+        border-bottom 2px solid ignorable1
+        
+    &.close
+        margin 0
+        padding 0
+        text-align center
+        line-height 17px
+        margin-top -21px
+        margin-right -1px
+        width 18px
+        height 18px
+        float right
+        
+    &.selected
+        border-top 2px solid ignorable3
+        border-left 2px solid ignorable3
+        border-right 2px solid ignorable1
+        border-bottom 2px solid ignorable1
+        
+    &.nulled
+        background ignorable1
+        
+        &:hover
+            color pointColor
+            
+        &:active
+            border-top 2px solid ignorable1
+            border-left 2px solid ignorable1
+            border-right 2px solid ignorable3
+            border-bottom 2px solid ignorable3
