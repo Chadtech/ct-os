@@ -1,17 +1,30 @@
-module Main.Init exposing (model, cmd)
+module Main.Init exposing (init)
 
-import Main.Model exposing (Model)
-import Main.Types.Software exposing (Software(..))
+import Main.Model as Model exposing (Model)
 import Main.Message exposing (Message(..))
-import TextWriter.Model as TextWriter
 import Array
+import Json.Decode as Decode exposing (Value)
+import Debug exposing (log)
 
 
-model : Model
-model =
-    { software =
-        Array.fromList
-            [ TextWriter (TextWriter.init "") ]
+init : Value -> ( Model, Cmd Message )
+init json =
+    case Decode.decodeValue Model.decoder json of
+        Ok model ->
+            ( model, cmd )
+
+        Err err ->
+            let
+                _ =
+                    log "err" err
+            in
+                ( blank, cmd )
+
+
+blank : Model
+blank =
+    { software = Array.empty
+    , programsOut = False
     , mouseMoveMsg = Nothing
     }
 

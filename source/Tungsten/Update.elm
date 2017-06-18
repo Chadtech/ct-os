@@ -1,23 +1,14 @@
-module TextWriter.Update exposing (update)
+module Tungsten.Update exposing (update)
 
-import TextWriter.Model exposing (Model)
-import TextWriter.Message exposing (Message(..))
-import TextWriter.ExternalMessage exposing (ExternalMessage(..))
+import Tungsten.Model exposing (Model)
+import Tungsten.Message exposing (Message(..))
+import Tungsten.ExternalMessage exposing (ExternalMessage(..))
 import Mouse exposing (Position)
 
 
 update : Message -> Model -> ( Model, Maybe ExternalMessage, Cmd Message )
 update message model =
     case message of
-        SetContent newContent ->
-            let
-                newModel =
-                    { model
-                        | content = newContent
-                    }
-            in
-                ( newModel, Nothing, Cmd.none )
-
         SetPosition { x, y } ->
             let
                 { mouseDownPosition } =
@@ -68,11 +59,37 @@ update message model =
                 , Cmd.none
                 )
 
+        SetUrlField str ->
+            let
+                newModel =
+                    { model
+                        | urlField =
+                            str
+                    }
+            in
+                ( newModel, Nothing, Cmd.none )
+
+        GoToUrl ->
+            let
+                newUrl =
+                    if String.left 6 model.urlField == "http://" then
+                        model.urlField
+                    else
+                        "http://" ++ model.urlField
+
+                newModel =
+                    { model
+                        | url = newUrl
+                        , urlField = newUrl
+                    }
+            in
+                ( newModel
+                , Nothing
+                , Cmd.none
+                )
+
         Close ->
             ( model
             , Just Delete
             , Cmd.none
             )
-
-        _ ->
-            ( model, Nothing, Cmd.none )

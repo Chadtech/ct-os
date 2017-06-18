@@ -1,15 +1,13 @@
-module TextWriter.Message exposing (Message(..))
+module Tungsten.Message exposing (..)
 
 import Mouse exposing (Position)
 import MouseEvents exposing (MouseEvent)
 
 
 type Message
-    = SetContent String
-    | SetPosition Position
+    = SetPosition Position
     | TitleMouseDown MouseEvent
     | TitleMouseUp
+    | SetUrlField String
+    | GoToUrl
     | Close
-    | New
-    | Open
-    | Save

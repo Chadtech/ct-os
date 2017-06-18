@@ -1,15 +1,15 @@
-module TextWriter.ExternalMessage exposing (..)
+module Tungsten.ExternalMessage exposing (..)
 
 import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
-import TextWriter.Message as TextWriter
+import Tungsten.Message as Tungsten
 import Mouse exposing (Position)
 import Array.Extra
 
 
 type ExternalMessage
     = Delete
-    | TrackMouseMovements (Position -> TextWriter.Message)
+    | TrackMouseMovements (Position -> Tungsten.Message)
     | StopTrackingMouseMovements
 
 
@@ -29,13 +29,13 @@ handleMessage index message model =
         Delete ->
             { model
                 | software =
-                    Array.Extra.removeAt 0 model.software
+                    Array.Extra.removeAt index model.software
             }
 
         TrackMouseMovements toMsg ->
             { model
                 | mouseMoveMsg =
-                    Just ((TextWriterMessage index) << toMsg)
+                    Just ((TungstenMessage index) << toMsg)
             }
 
         StopTrackingMouseMovements ->

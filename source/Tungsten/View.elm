@@ -1,10 +1,10 @@
-module TextWriter.View exposing (view)
+module Tungsten.View exposing (view)
 
-import Html exposing (Html, p, div, textarea, text, a)
-import Html.Attributes exposing (class, style, value)
-import Html.Events exposing (onInput, onClick, onMouseUp)
-import TextWriter.Model exposing (Model)
-import TextWriter.Message exposing (Message(..))
+import Html exposing (Html, p, div, form, input, text, a, iframe)
+import Html.Attributes exposing (class, style, src, value)
+import Html.Events exposing (onInput, onClick, onSubmit, onMouseUp)
+import Tungsten.Model exposing (Model)
+import Tungsten.Message exposing (Message(..))
 import Util exposing ((:=), px)
 import MouseEvents
 
@@ -43,13 +43,23 @@ view model =
                 ]
             , div
                 [ class "card-body" ]
-                [ textarea
-                    [ style
-                        [ "width" := px (width - 16)
-                        , "height" := px (height - 40)
+                [ form
+                    [ class "field tungsten"
+                    , onSubmit GoToUrl
+                    ]
+                    [ p [] [ text "url" ]
+                    , input
+                        [ value model.urlField
+                        , onInput SetUrlField
                         ]
-                    , value model.content
-                    , onInput SetContent
+                        []
+                    ]
+                , iframe
+                    [ src model.url
+                    , style
+                        [ "width" := px (width - 22)
+                        , "height" := px (height - 76)
+                        ]
                     ]
                     []
                 ]

@@ -1,5 +1,6 @@
-module TextWriter.Model exposing (..)
+module Tungsten.Model exposing (..)
 
+import Main.Types exposing (Size)
 import Main.Types exposing (Size, sizeDecoder, positionDecoder)
 import Mouse exposing (Position)
 import Json.Encode as Encode exposing (Value)
@@ -11,7 +12,8 @@ import Util exposing ((:=))
 type alias Model =
     { position : Position
     , size : Size
-    , content : String
+    , url : String
+    , urlField : String
     , mouseDownPosition : Maybe Position
     , title : String
     }
@@ -24,16 +26,17 @@ blank =
 
 init : String -> Model
 init initContent =
-    { position = Position 100 100
-    , size = Size 500 500
-    , content = initContent
+    { position = Position 125 125
+    , size = Size 800 600
+    , url = initContent
+    , urlField = initContent
     , mouseDownPosition = Nothing
-    , title = "Text Writer"
+    , title = "Tungsten Internet Browser"
     }
 
 
 
--- ENCODER --
+-- ENCODER
 
 
 encode : Model -> Value
@@ -43,7 +46,7 @@ encode model =
         , "y" := Encode.int model.position.y
         , "width" := Encode.int model.size.width
         , "height" := Encode.int model.size.height
-        , "content" := Encode.string model.content
+        , "url" := Encode.string model.url
         , "title" := Encode.string model.title
         ]
 
@@ -57,6 +60,7 @@ decoder =
     Pipeline.decode Model
         |> custom positionDecoder
         |> custom sizeDecoder
-        |> required "content" Decode.string
+        |> required "url" Decode.string
+        |> required "url" Decode.string
         |> hardcoded Nothing
         |> required "title" Decode.string
