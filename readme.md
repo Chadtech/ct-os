@@ -1,60 +1,11 @@
-# HI THERE
+# Ct-OS
 
-This is my 
+This is a little operating system that runs in your browser. You can visit it [here](www.ct-os.us).
 
-# Elm Gulp Browserify Boilerplate
+## What does it do?
 
-Its basically a template development environment with all of my favorite dependencies. It also might be useful to look at, if you are learning how to use Elm.
+You start at a desktop. You can click "Ct" and get a list of the available programs, which presently includes a text editor and a web browser. You can hit "Save" and save your desktop state, so that when you come back to [ct-os.us](www.ct-os.us) you will have the same programs running.
 
-How to get going..
-```
-> git clone https://github.com/Chadtech/elm-gulp-browserify-boilerplate new-project
-> cd new-project
-> npm install
-> elm package install --yes
-> gulp
+## Where is this going?
 
-then open up http://localhost:2978
-```
-
-
-This repo is organized as ..
-```
-distribution/             -- Your production-ready app
-development/              -- Your development app
-  index.html
-source/                   -- Source files
-  app.coffee              -- Loads your elm file, and handles ports
-  Ports.elm               -- Javascript inter-operation ports
-  Main.elm
-  Util.elm                -- Functions that are generally useful
-  Types/
-  Styles/
-    Main.styl
-    p.styl
-  Main/
-    Init.elm
-    Subscriptions.elm
-    Update.elm
-    View.elm
-    Model.elm
-    Message.elm
-gulpFile.coffee
-server.js
-```
-
-
-## Distribution
-
-To compile to `distribution` type into your terminal..
-
-```
-gulp distribution
-```
-
-It will run the js command without debug on. Its pretty sparse in what it does, but if you have your own dist operations, you can put them in that gulp task.
-
-
-## Elm Format
-
-There is an [Elm-Format](https://github.com/avh4/elm-format) task in this gulp file. Its not on by default, but you can switch to it by uncommenting a little code. 
+No where I guess! There are some features I would like to add that I dont have time for at the moment. I would be cool to be able to save files onto your desktop. I would be cool to be able to open up any text file on the internet, and then upload it somewhere else. That would be a fun proof of concept. There is also the idea of externally loading in programs, but that would be hard and probably not worth much. Presently the drop down buttons dont do anything.
